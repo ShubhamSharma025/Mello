@@ -37,7 +37,11 @@ public class SecurityConfig {
              .cors(cors -> cors.configurationSource(request -> {
             var config = new org.springframework.web.cors.CorsConfiguration();
             config.setAllowedOrigins(List.of("http://localhost:3000",
+
+                                            "https://mello-production.up.railway.app"));
+=======
         "https://mello-production.up.railway.app"));
+
             config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","OPTIONS"));
             config.setAllowedHeaders(List.of("*"));
             config.setAllowCredentials(true);

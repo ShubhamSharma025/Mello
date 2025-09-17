@@ -1,20 +1,41 @@
 'use client'
 
 import { useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 export default function HeroPage() {
   const router = useRouter()
+  const [token, setToken] = useState(null)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const storedToken = localStorage.getItem('jwtToken')
+      setToken(storedToken)
+    }
+  }, [])
 
   const handleCreateBoard = () => {
-    router.push('/boards') // Redirect to boards
+    if (token) {
+      router.push('/boards') // Logged in → Boards
+    } else {
+      router.push('/auth/login') // Not logged in → Login
+    }
+  }
+
+  const handleGetStarted = () => {
+    if (token) {
+      router.push('/boards') // Logged in → Boards
+    } else {
+      router.push('/auth/login') // Not logged in → Login
+    }
   }
 
   const handleLogin = () => {
-    router.push('/auth/login') // ✅ corrected path
+    router.push('/auth/login')
   }
 
   const handleSignup = () => {
-    router.push('/auth/signup') // ✅ corrected path
+    router.push('/auth/signup')
   }
 
   return (
@@ -54,7 +75,7 @@ export default function HeroPage() {
         <div className="text-center space-y-6">
           <h1 className="text-5xl font-extrabold text-gray-800">Welcome to Mello</h1>
           <p className="text-lg text-gray-600">Organize your work visually, just like Trello</p>
-          
+
           <div className="flex justify-center gap-4">
             <button
               onClick={handleCreateBoard}
@@ -63,7 +84,7 @@ export default function HeroPage() {
               Create a Board
             </button>
             <button
-              onClick={handleSignup}
+              onClick={handleGetStarted}
               className="px-6 py-3 bg-pink-600 text-white rounded-2xl text-lg shadow hover:bg-pink-700 transition"
             >
               Get Started

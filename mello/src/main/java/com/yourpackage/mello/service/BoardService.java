@@ -66,7 +66,10 @@ public class BoardService {
          Board updateBoard=boardRepository.save(board);
          return boardMapper.toDto(updateBoard);
     }
-    public void deleteBoard(Long id) {
-        boardRepository.deleteById(id);
+
+      public void deleteBoard(Long id) {
+        Board board = boardRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Board not found"));
+        boardRepository.delete(board);
     }
 }

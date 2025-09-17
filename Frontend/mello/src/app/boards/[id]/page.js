@@ -186,7 +186,23 @@ export default function BoardPage() {
   if (!board) return <div className="p-6 text-destructive">Board not found.</div>;
 
   return (
-    <div className="p-6">
+      <div className="min-h-screen w-full relative">
+      {/* Background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(to right, rgba(229,231,235,0.8) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(229,231,235,0.8) 1px, transparent 1px),
+            radial-gradient(circle 500px at 20% 100%, rgba(139,92,246,0.3), transparent),
+            radial-gradient(circle 500px at 100% 80%, rgba(59,130,246,0.3), transparent)
+          `,
+          backgroundSize: "48px 48px, 48px 48px, 100% 100%, 100% 100%",
+        }}
+      />
+    <div className="p-6 relative z-">
+
+
       <h1 className="text-3xl font-bold mb-6">{board.name}</h1>
 
       {/* Add list */}
@@ -357,5 +373,7 @@ export default function BoardPage() {
         <CardDetailsSheet card={selectedCard} onClose={() => setSelectedCard(null)} />
       )}
     </div>
+
+    /</div>
   );
 }

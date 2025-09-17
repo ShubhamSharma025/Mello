@@ -60,12 +60,14 @@ public class BoardController {
 
     // Delete a board
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteBoard(@PathVariable Long id) {
-        try {
-            boardService.deleteBoard(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+public ResponseEntity<Void> deleteBoard(@PathVariable Long id, Authentication authentication) {
+    try {
+        String username = authentication.getName();
+        boardService.deleteBoard(id); // ✅ Pass username
+        return ResponseEntity.noContent().build();
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
+}
+
 }

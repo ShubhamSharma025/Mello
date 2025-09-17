@@ -30,12 +30,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
-// <<<<<<< HEAD
-              String path = request.getRequestURI();
-            if (path.startsWith("/api/auth/")) {
-               filterChain.doFilter(request, response);
-                return;
-                  }
+
 
 // ==      String path = request.getRequestURI();
 // if (path.startsWith("/api/auth/")) {
@@ -44,6 +39,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 // }
 // >>>>>>> 40bd4fe (Initial commit with role entity)=====
           
+=======
+                String path = request.getRequestURI();
+if (path.startsWith("/api/auth/")) {
+    filterChain.doFilter(request, response);
+    return;
+}
+
 
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
